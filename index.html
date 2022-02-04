@@ -114,6 +114,7 @@
 	posCharMax = 5;
 	posGuessMax = 6;
 	guessNumTmp = 0;
+	won=0;
 	answer = "ready";
 	pickWord();
 	function pickWord(){
@@ -125,6 +126,7 @@
 	}
 
 	function enterChar(temp) {
+			if(won==1){return;}
 			charInput = event.key;
 			if(event.key === 'Enter') {
 				if(posGuess==(posGuessMax+1)){
@@ -141,21 +143,20 @@
 					posGuess += 1;
 		    		posChar = 1;
 		    		if(posGuess==(posGuessMax+1)){
-					alert("you lose");
 					return;
 					}
 		    		}
-					if (returnCode==3) {alert("you win")}
+					if (returnCode==3) {won=1;
+						guessNumTmp = parseInt(document.getElementsByClassName("guessNum")[0].innerHTML);
+					guessNumTmp += 1
+					document.getElementsByClassName("guessNum")[0].innerHTML = guessNumTmp;
+					return;}
 		    	}
 		    }
 		    else if(event.key === 'Backspace') {
-		    	if(posGuess==(posGuessMax+1)){
-					alert("you lose");
-					return;
-				}
-		    	getPos(posChar,posGuess).innerHTML = "[_]";
 		    	if(posChar > 1){
 		    		posChar -= 1;
+		    		getPos(posChar,posGuess).innerHTML = "[_]";
 		    	}
 		    }
 		    else if(posChar<(posCharMax+1) && isLetter(charInput)){
@@ -220,20 +221,29 @@
 		getPos(3,g).innerHTML.replace(']', '').replace('[', '')+
 		getPos(4,g).innerHTML.replace(']', '').replace('[', '')+
 		getPos(5,g).innerHTML.replace(']', '').replace('[', '')).toLowerCase();
-		
+		skipGreen = [0,0,0,0,0]
+		//check greens
 		if (guessList.includes(word) || (word==answer) || answerList.includes(word)){
-			for (var i = answer.length - 1; i >= 0; i--) {
-				for (var j = word.length - 1; j >= 0; j--) {
+			for (var i = 0; i < answer.length; i++) {
+				for (var j = 0; j < word.length; j++) {
 					if(word[j]==answer[i]){
 						if(j==i){
 							getPos(j+1,g).style.color="#009900";
 							document.getElementById(word[j]).style.color="#009900";
-						}else{
+							skipGreen[i]=1;
+						}
+					}
+				}
+			}
+		//check yellows
+			for (var i = 0; i < answer.length; i++) {
+				for (var j = 0; j < word.length; j++) {
+					if((word[j]==answer[i]) && (skipGreen[i]==0)){
 							if(getPos(j+1,g).style.color!="rgb(0, 153, 0)"){
 								getPos(j+1,g).style.color="#ffff00";
 								document.getElementById(word[j]).style.color="#ffff00";
+								skipGreen[i]=1;
 							}
-						}
 					}
 				}
 			}
