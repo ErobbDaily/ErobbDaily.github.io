@@ -16,6 +16,7 @@
       	font-size: 30px;
       }
 </style>
+<title>Wordle Practice</title>
 <html onkeydown="enterChar()">
 	<p id="letter-list" class="text-1">
 		<span id="a">a</span>
@@ -119,48 +120,53 @@
 		answer = answerList[Math.floor(Math.random()*answerList.length)];
 	}
 
-	function enterChar() {
-		charInput = event.key;
-		if(event.key === 'Enter') {
-			if(posGuess==(posGuessMax+1)){
-				alert("you lose");
-				return;
-			}
-			if(posChar==(posCharMax+1)){
-				returnCode = enterGuess(posGuess);
-				if (returnCode==1) {alert("Not in Words List")}
-				if (returnCode==2) {
-				guessNumTmp = parseInt(document.getElementsByClassName("guessNum")[0].innerHTML);
-				guessNumTmp += 1
-				document.getElementsByClassName("guessNum")[0].innerHTML = guessNumTmp;
-				posGuess += 1;
-	    		posChar = 1;
-	    		if(posGuess==(posGuessMax+1)){
-				alert("you lose");
-				return;
-				}
-	    		}
-				if (returnCode==3) {alert("you win")}
-	    	}
-	    }
-	    else if(event.key === 'Backspace') {
-	    	if(posGuess==(posGuessMax+1)){
-				alert("you lose");
-				return;
-			}
-	    	getPos(posChar,posGuess).innerHTML = "[_]";
-	    	if(posChar > 1){
-	    		posChar -= 1;
-	    	}
-	    }
-	    else if(posChar<(posCharMax+1)){
-	    	getPos(posChar,posGuess).innerHTML = "["+charInput.toUpperCase()+"]";
-			if(posChar!=(posCharMax+1)){
-	    		posChar += 1;
-	    	}
-	   	}
+	function isLetter(str) {
+	  return str.length === 1 && str.match(/[a-z]/i);
 	}
+
+	function enterChar(temp) {
+			charInput = event.key;
+			if(event.key === 'Enter') {
+				if(posGuess==(posGuessMax+1)){
+					alert("you lose");
+					return;
+				}
+				if(posChar==(posCharMax+1)){
+					returnCode = enterGuess(posGuess);
+					if (returnCode==1) {alert("Not in Words List")}
+					if (returnCode==2) {
+					guessNumTmp = parseInt(document.getElementsByClassName("guessNum")[0].innerHTML);
+					guessNumTmp += 1
+					document.getElementsByClassName("guessNum")[0].innerHTML = guessNumTmp;
+					posGuess += 1;
+		    		posChar = 1;
+		    		if(posGuess==(posGuessMax+1)){
+					alert("you lose");
+					return;
+					}
+		    		}
+					if (returnCode==3) {alert("you win")}
+		    	}
+		    }
+		    else if(event.key === 'Backspace') {
+		    	if(posGuess==(posGuessMax+1)){
+					alert("you lose");
+					return;
+				}
+		    	getPos(posChar,posGuess).innerHTML = "[_]";
+		    	if(posChar > 1){
+		    		posChar -= 1;
+		    	}
+		    }
+		    else if(posChar<(posCharMax+1) && isLetter(charInput)){
+		    	getPos(posChar,posGuess).innerHTML = "["+charInput.toUpperCase()+"]";
+				if(posChar!=(posCharMax+1)){
+		    		posChar += 1;
+		    	}
+		   	}
+		}
 	
+
 	function getPos(x,y) {
 		g = g1
 		switch (y) {
