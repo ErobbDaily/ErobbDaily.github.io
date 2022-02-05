@@ -15,43 +15,16 @@
       	color:#ffe;
       	font-size: 40px;
       }
-      #letter-list > span {padding: 10px;border-style: solid;margin-right: -10px;border-color: #333;}
+      #letter-list > span {padding: 10px;border-style: solid;margin-right: -10px;border-color: rgba(0,0,0,0);border-width: 1px;border-radius: 100px}
       #letter-list > span:hover {cursor: pointer;border-color: #ffe;}
       
 </style>
 <title>Wordle Practice</title>
 <html onkeydown="enterChar('0')">
 <br>
-	<p id="letter-list" class="text-1">
-		<span id="a" onclick="enterChar('a')">a</span>
-		<span id="b" onclick="enterChar('b')">b</span>
-		<span id="c" onclick="enterChar('c')">c</span>
-		<span id="d" onclick="enterChar('d')">d</span>
-		<span id="e" onclick="enterChar('e')">e</span>
-		<span id="f" onclick="enterChar('f')">f</span>
-		<span id="g" onclick="enterChar('g')">g</span>
-		<span id="h" onclick="enterChar('h')">h</span>
-		<span id="i" onclick="enterChar('i')">i</span>
-		<span id="j" onclick="enterChar('j')">j</span>
-		<span id="k" onclick="enterChar('k')">k</span>
-		<span id="l" onclick="enterChar('l')">l</span>
-		<span id="m" onclick="enterChar('m')">m</span>
-		<span id="n" onclick="enterChar('n')">n</span>
-		<span id="o" onclick="enterChar('o')">o</span>
-		<span id="p" onclick="enterChar('p')">p</span>
-		<span id="q" onclick="enterChar('q')">q</span>
-		<span id="r" onclick="enterChar('r')">r</span>
-		<span id="s" onclick="enterChar('s')">s</span>
-		<span id="t" onclick="enterChar('t')">t</span>
-		<span id="u" onclick="enterChar('u')">u</span>
-		<span id="v" onclick="enterChar('v')">v</span>
-		<span id="w" onclick="enterChar('w')">w</span>
-		<span id="x" onclick="enterChar('x')">x</span>
-		<span id="y" onclick="enterChar('y')">y</span>
-		<span id="z" onclick="enterChar('z')">z</span>
-	</p>
-	<span class="guessNum text-1">0</span><span class="text-1">/6</span>
-  	<br>
+<span style="display: none;" class="guessNum text-1">0</span><span style="display: none;" class="text-1">/6</span>
+
+	
   	<div id="guesses" class="text-1">
 	 	<p id="g1">
 	 		<span class="c1">[_]</span>
@@ -96,7 +69,39 @@
 	 		<span class="c5">[_]</span>
 	 	</p>
 	</div>
-
+	<p id="letter-list" class="text-1">
+		<span id="q" onclick="enterChar('q')">q</span>
+		<span id="w" onclick="enterChar('w')">w</span>
+		<span id="e" onclick="enterChar('e')">e</span>
+		<span id="r" onclick="enterChar('r')">r</span>
+		<span id="t" onclick="enterChar('t')">t</span>
+		<span id="y" onclick="enterChar('y')">y</span>
+		<span id="u" onclick="enterChar('u')">u</span>
+		<span id="i" onclick="enterChar('i')">i</span>
+		<span id="o" onclick="enterChar('o')">o</span>
+		<span id="p" onclick="enterChar('p')">p</span>
+		<br>		
+		<span id="a" onclick="enterChar('a')">a</span>
+		<span id="s" onclick="enterChar('s')">s</span>
+		<span id="d" onclick="enterChar('d')">d</span>
+		<span id="f" onclick="enterChar('f')">f</span>
+		<span id="g" onclick="enterChar('g')">g</span>
+		<span id="h" onclick="enterChar('h')">h</span>
+		<span id="j" onclick="enterChar('j')">j</span>
+		<span id="k" onclick="enterChar('k')">k</span>
+		<span id="l" onclick="enterChar('l')">l</span>
+		<br>
+		<span id="z" onclick="enterChar('z')">z</span>
+		<span id="x" onclick="enterChar('x')">x</span>
+		<span id="c" onclick="enterChar('c')">c</span>
+		<span id="v" onclick="enterChar('v')">v</span>
+		<span id="b" onclick="enterChar('b')">b</span>
+		<span id="n" onclick="enterChar('n')">n</span>
+		<span id="m" onclick="enterChar('m')">m</span>
+		<br>
+		<span id="Enter" onclick="enterChar('Enter')">Enter</span>
+		<span id="Backspace" onclick="enterChar('Backspace')">Backspace</span>
+	</p>
 </html>
 
 <script type="text/javascript">
@@ -255,8 +260,8 @@
 				}
 			}
 		for (var j = word.length - 1; j >= 0; j--) {
-			if(getPos(j+1,g).style.color == ''){
-				document.getElementById(word[j]).style.color="#444";
+			if((getPos(j+1,g).style.color == '') && (document.getElementById(word[j]).style.color == '')){
+					document.getElementById(word[j]).style.color="#444";
 			}
 		}
 		if (word==answer) {return 3;}
